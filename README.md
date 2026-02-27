@@ -33,20 +33,17 @@ Smart Variable Injection: The CLI prompts you for your Treasury Wallet or Candy 
 SolWink currently ships with the two most highly requested use cases in the Solana ecosystem:
 Templates 
 
+## Use Cases
+SolWink currently ships with the two most highly requested use cases in the Solana ecosystem:
+Templates 
+
 💰 1. SOL Donation (Crowdfund)
 A dynamic Blink that allows users to send SOL to a specific treasury wallet.
 
-CLI Inputs: Prompts for the destination Treasury Wallet address.
-
 🖼️ 2. NFT Mint (Metaplex Candy Machine)
-A fully integrated NFT minting Blink using the modern @metaplex-foundation/umi standard.
+A fully integrated NFT minting Blink.
 
 Features: Direct integration with Candy Machine v2/v3, pre-configured Umi instance, and optimized image rendering for Twitter unfurls.
-
-CLI Inputs: Prompts for your specific Metaplex Candy Machine ID.
-
-📁 Generated Architecture
-SolWink generates a clean, "Headless" backend structure that is easy to deploy to Render, Railway, or Heroku:
 
 Templates (under development)
 
@@ -57,5 +54,8 @@ We are actively expanding the SolWink template library to become the standard sc
 4. Jupiter Swaps: Direct token-to-token swaps right inside the Blink.
 
 5. DAO Governance: On-chain voting for Realms/Snapshot.
+
+## 📁 Generated Architecture
+SolWink generates a clean, "Headless" backend structure that is easy to deploy to Render, Railway, or Heroku:
 
 
