@@ -22,7 +22,7 @@ const ACTION_HEADERS = {
   "Access-Control-Allow-Headers": "Content-Type, Authorization, Content-Encoding, Accept-Encoding",
   "Access-Control-Expose-Headers": "X-Action-Version, X-Blockchain-Ids",
   "X-Action-Version": "2.1.3",
-  "X-Blockchain-Ids": "solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1",
+  "X-Blockchain-Ids": "{{CHAIN_ID}}",
 };
 
 app.use((req, res, next) => {
@@ -60,7 +60,7 @@ app.get("/api/donate", (req, res) => {
           parameters: [
             { 
               name: "amount", 
-              label: "Enter SOL amount (e.g. 0.25)", 
+              label: "Enter SOL amount", 
               required: true 
             }
           ],
@@ -84,7 +84,7 @@ app.post("/api/donate", async (req, res) => {
       return res.status(400).json({ error: "Invalid amount entered." });
     }
 
-    const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
+    const connection = new Connection(clusterApiUrl("{{NETWORK}}" as any), "confirmed");
     const DONATION_DESTINATION_WALLET = new PublicKey("{{TREASURY_WALLET}}"); 
 
     const transferIx = SystemProgram.transfer({

@@ -6,7 +6,7 @@ import {
 } from "@solana/actions";
 import { clusterApiUrl } from "@solana/web3.js";
 
-// Metaplex imports
+
 import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
 import { fetchCandyMachine, mintV2, mplCandyMachine } from "@metaplex-foundation/mpl-candy-machine";
 import { createNoopSigner, generateSigner, publicKey, transactionBuilder } from "@metaplex-foundation/umi";
@@ -22,7 +22,7 @@ const ACTION_HEADERS = {
   "Access-Control-Allow-Headers": "Content-Type, Authorization, Content-Encoding, Accept-Encoding",
   "Access-Control-Expose-Headers": "X-Action-Version, X-Blockchain-Ids",
   "X-Action-Version": "2.1.3",
-  "X-Blockchain-Ids": "solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1",
+  "X-Blockchain-Ids": "{{CHAIN_ID}}",
 };
 
 app.use((req, res, next) => {
@@ -47,7 +47,7 @@ app.get("/api/mint", (req, res) => {
 
   const payload: ActionGetResponse = {
     type: "action",
-    icon: "https://ucarecdn.com/49ae4405-b0f3-4eab-93aa-97f259cebfba/-/preview/880x880/-/quality/smart/-/format/auto/", 
+    icon: "https://metadata.y00ts.com/y/13877.png", 
     title: "Mint Your Exclusive NFT",
     description: "Mint a digital collectible directly from this Blink using Metaplex Candy Machine.",
     label: "Mint NFT",
@@ -56,20 +56,27 @@ app.get("/api/mint", (req, res) => {
         { 
           type: "transaction", 
           label: "Mint NFT", 
-          href: `${baseUrl}/api/mint` 
+          href: `${baseUrl}/api/mint?amount={amount}`,
+          parameters: [
+            {
+              name: "amount", 
+              label: "Enter number of NFTs to mint",
+              required: true,
+            }
+          ],
         }
       ],
     },
   };
 
   res.json(payload);
-});
+} );
 
 app.post("/api/mint", async (req, res) => {
   try {
     const body: ActionPostRequest = req.body;
     
-    const umi = createUmi(clusterApiUrl("devnet")).use(mplCandyMachine());
+    const umi = createUmi(clusterApiUrl("{{NETWORK}}" as any)).use(mplCandyMachine());
     const minterPubkey = publicKey(body.account);
     const cmPubkey = publicKey("{{CANDY_MACHINE_ID}}"); 
     
