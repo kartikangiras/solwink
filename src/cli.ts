@@ -27,6 +27,7 @@ program.action(async () => {
       message: 'Which Blink template would you like to scaffold?',
       choices: [
         { name: '💰 SOL Donation (Crowdfund)', value: 'donation' },
+        { name: '🖼️ NFT Mint (Metaplex Candy Machine', value: 'nft-mint'}
       ]
     },
     {
@@ -39,8 +40,16 @@ program.action(async () => {
       type: 'input',
       name: 'treasuryWallet',
       message: 'Enter the destination wallet address (to receive funds):',
+      when: (answers) => answers.templateType === 'donation',
       validate: (input) => input.length >= 32 || 'Please enter a valid Solana public key.',
-    }
+    },
+    {
+            type: 'input',
+            name: 'candyMachineID',
+            message: 'Enter your Metaplex Candy Machine Id:',
+            when: (answers) => answers.templateType === 'nft-mint',
+            validate: (input) => input.length >= 32 || 'Please enter a valid Solana public key'
+        }
   ]);
 
   const targetPath = path.join(process.cwd(), answers.projectName);
